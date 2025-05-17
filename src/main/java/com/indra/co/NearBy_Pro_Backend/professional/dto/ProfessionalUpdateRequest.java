@@ -1,5 +1,6 @@
 package com.indra.co.NearBy_Pro_Backend.professional.dto;
 
+import com.indra.co.NearBy_Pro_Backend.common.model.Location;
 import com.indra.co.NearBy_Pro_Backend.common.model.ProfessionDefinition;
 
 import lombok.Data;
@@ -10,6 +11,6 @@ import java.util.List;
 public class ProfessionalUpdateRequest {
     private Boolean isAvailable;
     private List<ProfessionDefinition> professionDefinitions;
-    private String currentWorkLocation;
+    private Location currentWorkLocation;
     private double defaultServiceRadius;
 } 

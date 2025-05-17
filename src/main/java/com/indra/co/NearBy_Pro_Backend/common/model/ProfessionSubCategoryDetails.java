@@ -1,15 +1,17 @@
 package com.indra.co.NearBy_Pro_Backend.common.model;
 
-import java.util.List;
+
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
-
+import jakarta.validation.constraints.NotBlank;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProfessionSubCategoryDetails {
-    private String subCategoryId;
+    @NotBlank(message = "Sub category ID is required")
+    private long subCategoryId;
+    @NotBlank(message = "Cost per hour is required")
     private double costPerHour;
 }
