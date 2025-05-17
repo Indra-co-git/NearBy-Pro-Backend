@@ -25,23 +25,23 @@ public class ServiceTagController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ServiceTag> getServiceTagById(@PathVariable String id) {
+    public ResponseEntity<ServiceTag> getServiceTagById(@PathVariable Long id) {
         return ResponseEntity.ok(serviceTagService.getServiceTagById(id));
     }
 
     @GetMapping("/subcategory/{subCategoryId}")
-    public ResponseEntity<List<ServiceTag>> getServiceTagsBySubCategoryId(@PathVariable String subCategoryId) {
+    public ResponseEntity<List<ServiceTag>> getServiceTagsBySubCategoryId(@PathVariable Long subCategoryId) {
         return ResponseEntity.ok(serviceTagService.getServiceTagsBySubCategoryId(subCategoryId));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ServiceTag> updateServiceTag(@PathVariable String id, @RequestBody ServiceTag serviceTag) {
+    public ResponseEntity<ServiceTag> updateServiceTag(@PathVariable Long id, @RequestBody ServiceTag serviceTag) {
         serviceTag.setId(id);
         return ResponseEntity.ok(serviceTagService.updateServiceTag(serviceTag));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteServiceTag(@PathVariable String id) {
+    public ResponseEntity<Void> deleteServiceTag(@PathVariable Long id) {
         serviceTagService.deleteServiceTag(id);
         return ResponseEntity.ok().build();
     }

@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.indra.co.NearBy_Pro_Backend.common.model.Professional;
+import com.indra.co.NearBy_Pro_Backend.common.model.ProfessionDefinition;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,14 +16,8 @@ public interface ProfessionalRepository extends MongoRepository<Professional, St
     Optional<Professional> findByPhoneNumber(String phoneNumber);
     
     Optional<Professional> findByEmail(String email);
-    
-    List<Professional> findByIsAvailable(boolean isAvailable);
-    
-    List<Professional> findByCategoryId(String categoryId);
-    
-    List<Professional> findBySubCategoryId(String subCategoryId);
-    
-    List<Professional> findByServiceTagIdsContaining(String serviceTagId);
+
+    List<Professional> findByProfessionDefinitionsContaining(ProfessionDefinition professionDefinition);
     
     @Query("{'currentWorkLocation': {$near: {$geometry: {type: 'Point', coordinates: [?0, ?1]}, $maxDistance: ?2}}}")
     List<Professional> findNearbyProfessionals(double longitude, double latitude, double maxDistance);

@@ -6,6 +6,6 @@ import com.indra.co.NearBy_Pro_Backend.common.model.ServiceTag;
 import java.util.List;
 
 @Repository
-public interface ServiceTagRepository extends MongoRepository<ServiceTag, String> {
-    List<ServiceTag> findBySubCategoryId(String subCategoryId);
+public interface ServiceTagRepository extends MongoRepository<ServiceTag, Long> {
+    List<ServiceTag> findBySubCategoryId(Long subCategoryId);
 } 

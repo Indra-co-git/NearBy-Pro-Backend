@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.indra.co.NearBy_Pro_Backend.common.model.ServiceTag;
 import com.indra.co.NearBy_Pro_Backend.common.repository.ServiceTagRepository;
+import com.indra.co.NearBy_Pro_Backend.common.config.SequenceGenerator;
 import java.util.List;
 import java.time.LocalDateTime;
 
@@ -13,8 +14,12 @@ public class ServiceTagService {
     @Autowired
     private ServiceTagRepository serviceTagRepository;
 
+    @Autowired
+    private SequenceGenerator sequenceGenerator;
+
     public ServiceTag createServiceTag(ServiceTag serviceTag) {
         validateServiceTag(serviceTag);
+        serviceTag.setId(sequenceGenerator.generateSequence("servicetag_sequence"));
         serviceTag.setCreatedAt(LocalDateTime.now());
         serviceTag.setUpdatedAt(LocalDateTime.now());
         return serviceTagRepository.save(serviceTag);
@@ -24,25 +29,25 @@ public class ServiceTagService {
         return serviceTagRepository.findAll();
     }
 
-    public ServiceTag getServiceTagById(String id) {
+    public ServiceTag getServiceTagById(Long id) {
         return serviceTagRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("ServiceTag not found with id: " + id));
     }
 
-    public List<ServiceTag> getServiceTagsBySubCategoryId(String subCategoryId) {
+    public List<ServiceTag> getServiceTagsBySubCategoryId(Long subCategoryId) {
         return serviceTagRepository.findBySubCategoryId(subCategoryId);
     }
 
     public ServiceTag updateServiceTag(ServiceTag serviceTag) {
         validateServiceTag(serviceTag);
-        if (!serviceTagRepository.existsById(serviceTag.getId().toString())) {
+        if (!serviceTagRepository.existsById(serviceTag.getId())) {
             throw new RuntimeException("ServiceTag not found with id: " + serviceTag.getId());
         }
         serviceTag.setUpdatedAt(LocalDateTime.now());
         return serviceTagRepository.save(serviceTag);
     }
 
-    public void deleteServiceTag(String id) {
+    public void deleteServiceTag(Long id) {
         if (!serviceTagRepository.existsById(id)) {
             throw new RuntimeException("ServiceTag not found with id: " + id);
         }
