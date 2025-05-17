@@ -9,7 +9,8 @@ import com.indra.co.NearBy_Pro_Backend.user.repository.UserRepository;
 import com.indra.co.NearBy_Pro_Backend.user.dto.UserRegistrationRequest;
 import com.indra.co.NearBy_Pro_Backend.common.model.Address;
 import com.indra.co.NearBy_Pro_Backend.common.model.Location;
-
+import com.indra.co.NearBy_Pro_Backend.common.dto.CategoryDetailsResponseDto;
+import com.indra.co.NearBy_Pro_Backend.common.service.CategoryService;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Arrays;
@@ -20,6 +21,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserRegistrationRequest request) {
@@ -96,8 +100,8 @@ public class UserController {
         
         return ResponseEntity.ok(userRepository.findNearbyUsers(longitude, latitude, maxDistance));
     }
-    // @GetMapping("/getAllCategories")
-    // public ResponseEntity<CategoryDetailsResponseDto> getAllCategories() {
-    //     return ResponseEntity.ok(categoryService.getAllCategories());
-    // }
+    @GetMapping("/getAllCategories")
+    public ResponseEntity<List<CategoryDetailsResponseDto>> getAllCategories() {
+        return ResponseEntity.ok(categoryService.getAllCategoriesWithSubCategoriesAndServiceTags());
+    }
 } 

@@ -7,5 +7,5 @@ import java.util.List;
 
 @Repository
 public interface ServiceTagRepository extends MongoRepository<ServiceTag, Long> {
-    List<ServiceTag> findBySubCategoryId(Long subCategoryId);
+    List<ServiceTag> findByIdIn(List<Long> ids);
 } 

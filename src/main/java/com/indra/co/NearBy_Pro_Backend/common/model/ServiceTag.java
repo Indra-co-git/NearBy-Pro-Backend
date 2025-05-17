@@ -11,7 +11,6 @@ public class ServiceTag {
     private Long id;
     private String name;
     private String description;
-    private Long subCategoryId;
     private boolean isActive;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

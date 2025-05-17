@@ -29,11 +29,6 @@ public class ServiceTagController {
         return ResponseEntity.ok(serviceTagService.getServiceTagById(id));
     }
 
-    @GetMapping("/subcategory/{subCategoryId}")
-    public ResponseEntity<List<ServiceTag>> getServiceTagsBySubCategoryId(@PathVariable Long subCategoryId) {
-        return ResponseEntity.ok(serviceTagService.getServiceTagsBySubCategoryId(subCategoryId));
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<ServiceTag> updateServiceTag(@PathVariable Long id, @RequestBody ServiceTag serviceTag) {
         serviceTag.setId(id);

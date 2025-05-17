@@ -42,4 +42,10 @@ public class SubCategoryService {
         }
         subCategoryRepository.deleteById(id);
     }
+
+    public List<SubCategory> getSubCategoriesByIds(List<Long> ids) {
+        return subCategoryRepository.findByIdIn(ids);
+    }
+    
+    
 } 

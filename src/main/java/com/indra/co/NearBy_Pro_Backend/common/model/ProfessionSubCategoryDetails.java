@@ -11,5 +11,5 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ProfessionSubCategoryDetails {
     private String subCategoryId;
-    private boolean costPerHour;
+    private double costPerHour;
 }

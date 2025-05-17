@@ -34,10 +34,6 @@ public class ServiceTagService {
                 .orElseThrow(() -> new RuntimeException("ServiceTag not found with id: " + id));
     }
 
-    public List<ServiceTag> getServiceTagsBySubCategoryId(Long subCategoryId) {
-        return serviceTagRepository.findBySubCategoryId(subCategoryId);
-    }
-
     public ServiceTag updateServiceTag(ServiceTag serviceTag) {
         validateServiceTag(serviceTag);
         if (!serviceTagRepository.existsById(serviceTag.getId())) {
@@ -58,8 +54,9 @@ public class ServiceTagService {
         if (serviceTag.getName() == null || serviceTag.getName().trim().isEmpty()) {
             throw new IllegalArgumentException("Service tag name cannot be empty");
         }
-        if (serviceTag.getSubCategoryId() == null) {
-            throw new IllegalArgumentException("SubCategory ID cannot be empty");
-        }
+    }
+
+    public List<ServiceTag> getServiceTagsByIds(List<Long> ids) {
+        return serviceTagRepository.findByIdIn(ids);
     }
 } 
