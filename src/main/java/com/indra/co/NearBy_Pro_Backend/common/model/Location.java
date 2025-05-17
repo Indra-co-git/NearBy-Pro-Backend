@@ -10,9 +10,6 @@ import lombok.AllArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Location {
-    private double[] coordinates; // [longitude, latitude]
-    
-    public Location(double longitude, double latitude) {
-        this.coordinates = new double[]{longitude, latitude};
-    }
+    private double longitude;
+    private double latitude;
 } 

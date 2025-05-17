@@ -1,27 +1,17 @@
 package com.indra.co.NearBy_Pro_Backend.common.model;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import lombok.Data;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-
+import lombok.EqualsAndHashCode;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.UUID;
 
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @Document(collection = "service_tags")
-public class ServiceTag {
-    @Id
-    private String id;
+public class ServiceTag extends BaseModel {
     private String name;
     private String description;
+    private String subCategoryId;
     private boolean isActive;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 } 

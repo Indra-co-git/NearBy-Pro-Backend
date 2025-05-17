@@ -1,32 +1,24 @@
-package com.indra.co.NearBy_Pro_Backend.professional.model;
+package com.indra.co.NearBy_Pro_Backend.common.model;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import com.indra.co.NearBy_Pro_Backend.common.model.Address;
-import com.indra.co.NearBy_Pro_Backend.common.model.Location;
-
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "professionals")
-public class Professional {
-    @Id
-    private String id;
-    
+public class Professional extends BaseModel {
     private String fullName;
     private String phoneNumber;
     private String email;
@@ -34,16 +26,10 @@ public class Professional {
     private boolean isAvailable;
     private double defaultServiceRadius; // in kilometers
     private Address address;
-    private Map<String, List<String>> selectedCategoriesSubCategoriesMap;
+    private List<ProfessionDefinition> professionDefinitions;
     
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
     private Location currentWorkLocation;
-    
-    private String categoryId;
-    private String subCategoryId;
-    private List<String> serviceTagIds;
-    
+
     private boolean isVerified;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 } 

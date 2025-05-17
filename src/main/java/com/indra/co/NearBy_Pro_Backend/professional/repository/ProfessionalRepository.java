@@ -4,7 +4,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.indra.co.NearBy_Pro_Backend.professional.model.Professional;
+import com.indra.co.NearBy_Pro_Backend.common.model.Professional;
 
 import java.util.List;
 import java.util.Optional;

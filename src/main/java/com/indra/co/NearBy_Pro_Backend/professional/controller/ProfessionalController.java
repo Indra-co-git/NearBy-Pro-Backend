@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.indra.co.NearBy_Pro_Backend.professional.model.Professional;
 import com.indra.co.NearBy_Pro_Backend.professional.repository.ProfessionalRepository;
+import com.indra.co.NearBy_Pro_Backend.common.model.Professional;
 import com.indra.co.NearBy_Pro_Backend.professional.dto.ProfessionalRegistrationRequest;
 import com.indra.co.NearBy_Pro_Backend.professional.dto.ProfessionalUpdateRequest;
 
@@ -38,11 +38,8 @@ public class ProfessionalController {
                 .defaultServiceRadius(request.getDefaultServiceRadius())
                 .address(request.getAddress())
                 .currentWorkLocation(request.getCurrentWorkLocation())
-                .selectedCategoriesSubCategoriesMap(request.getSelectedCategoriesSubCategoriesMap())
                 .isAvailable(false) // Default to false until verified
                 .isVerified(false)
-                .createdAt(LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
                 .build();
 
         Professional savedProfessional = professionalRepository.save(professional);
@@ -57,17 +54,8 @@ public class ProfessionalController {
         return professionalRepository.findById(id)
                 .map(professional -> {
                     // Update fields if they are not null
-                    if (request.getCategoryId() != null) {
-                        professional.setCategoryId(request.getCategoryId());
-                    }
-                    if (request.getSubCategoryId() != null) {
-                        professional.setSubCategoryId(request.getSubCategoryId());
-                    }
-                    if (request.getServiceTagIds() != null) {
-                        professional.setServiceTagIds(request.getServiceTagIds());
-                    }
-                    if (request.getSelectedCategoriesSubCategoriesMap() != null) {
-                        professional.setSelectedCategoriesSubCategoriesMap(request.getSelectedCategoriesSubCategoriesMap());
+                    if (request.getProfessionDefinitions() != null) {
+                        professional.setProfessionDefinitions(request.getProfessionDefinitions());
                     }
                     
                     professional.setUpdatedAt(LocalDateTime.now());
