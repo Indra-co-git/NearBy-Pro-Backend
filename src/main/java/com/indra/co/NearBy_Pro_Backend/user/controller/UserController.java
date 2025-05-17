@@ -96,4 +96,8 @@ public class UserController {
         
         return ResponseEntity.ok(userRepository.findNearbyUsers(longitude, latitude, maxDistance));
     }
+    // @GetMapping("/getAllCategories")
+    // public ResponseEntity<CategoryDetailsResponseDto> getAllCategories() {
+    //     return ResponseEntity.ok(categoryService.getAllCategories());
+    // }
 } 

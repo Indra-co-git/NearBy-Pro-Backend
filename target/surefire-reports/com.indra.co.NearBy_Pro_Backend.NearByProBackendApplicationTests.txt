@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.indra.co.NearBy_Pro_Backend.NearByProBackendApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.965 s -- in com.indra.co.NearBy_Pro_Backend.NearByProBackendApplicationTests
