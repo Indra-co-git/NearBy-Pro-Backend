@@ -131,6 +131,8 @@ public class ProfessionalSearchService {
         switch (sortBy) {
             case RELEVANCE:
                 return "relevance";
+            case DISTANCE:
+                return "distance";
             default:
                 return "createdAt";
         }

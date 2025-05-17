@@ -13,9 +13,9 @@ public class ProfessionalSearchRequest {
     private Double maxDistance; // in kilometers
     
     // Category based filters
-    private String categoryId;
-    private String subCategoryId;
-    private List<String> serviceTagIds;
+    private Long categoryId;
+    private Long subCategoryId;
+    private List<Long> serviceTagIds;
     
     // Availability filter
     private Boolean isAvailable;
