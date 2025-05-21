@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CORS Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        button { margin: 10px; padding: 10px; }
+        #result { margin-top: 20px; padding: 10px; border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+    <h1>CORS Test</h1>
+    <button onclick="testGet()">Test GET Request</button>
+    <button onclick="testPost()">Test POST Request</button>
+    <div id="result"></div>
+
+    <script>
+        const API_URL = 'http://localhost:8080/api/v1/test/cors';
+        const resultDiv = document.getElementById('result');
+
+        async function testGet() {
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                });
+                const data = await response.text();
+                resultDiv.innerHTML = `GET Response: ${data}`;
+            } catch (error) {
+                resultDiv.innerHTML = `GET Error: ${error.message}`;
+            }
+        }
+
+        async function testPost() {
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ test: 'data' })
+                });
+                const data = await response.text();
+                resultDiv.innerHTML = `POST Response: ${data}`;
+            } catch (error) {
+                resultDiv.innerHTML = `POST Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html> 

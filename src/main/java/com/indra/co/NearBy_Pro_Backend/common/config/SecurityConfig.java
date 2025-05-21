@@ -6,8 +6,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.config.Customizer;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -21,12 +19,17 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable())  // Disable CSRF for API endpoints
+            .csrf(csrf -> csrf.disable())
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .anyRequest().permitAll()  // Allow all requests
+                .requestMatchers("/**").permitAll()
+                .anyRequest().permitAll()
+            )
+            .headers(headers -> headers
+                .contentSecurityPolicy(csp -> csp.policyDirectives("default-src 'self'"))
+                .xssProtection(xss -> xss.disable())
             );
         
         return http.build();
@@ -35,10 +38,30 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:62885")); // Add your frontend origin
+        // Allow only the frontend origin
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With", "Accept", "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers"));
-        configuration.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"));
+        configuration.setAllowedHeaders(Arrays.asList(
+            "Authorization",
+            "Content-Type",
+            "X-Requested-With",
+            "Accept",
+            "Origin",
+            "Access-Control-Request-Method",
+            "Access-Control-Request-Headers",
+            "Access-Control-Allow-Origin",
+            "Access-Control-Allow-Headers",
+            "Access-Control-Allow-Methods",
+            "Referrer-Policy",
+            "referrer-policy"
+        ));
+        configuration.setExposedHeaders(Arrays.asList(
+            "Access-Control-Allow-Origin",
+            "Access-Control-Allow-Credentials",
+            "Access-Control-Allow-Headers",
+            "Access-Control-Allow-Methods",
+            "Referrer-Policy"
+        ));
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
 

@@ -3,6 +3,7 @@ package com.indra.co.NearBy_Pro_Backend.professional.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.Validated;
 
 import com.indra.co.NearBy_Pro_Backend.common.dto.ProfessionalResponseDto;
 import com.indra.co.NearBy_Pro_Backend.common.model.Professional;
@@ -12,13 +13,15 @@ import com.indra.co.NearBy_Pro_Backend.professional.service.ProfessionalService;
 
 @RestController
 @RequestMapping("/api/v1/professionals")
+@Validated
 public class ProfessionalController {
 
     @Autowired
     private ProfessionalService professionalService;
 
     @PostMapping("/register")
-    public ResponseEntity<Professional> registerProfessional(@RequestBody ProfessionalRegistrationRequest request) {
+    public ResponseEntity<Professional> registerProfessional(
+            @Validated @RequestBody ProfessionalRegistrationRequest request) {
         Professional savedProfessional = professionalService.registerProfessional(request);
         return ResponseEntity.ok(savedProfessional);
     }
@@ -26,7 +29,7 @@ public class ProfessionalController {
     @PatchMapping("/{id}")
     public ResponseEntity<Professional> updateProfessional(
             @PathVariable String id,
-            @RequestBody ProfessionalUpdateRequest request) {
+            @Validated @RequestBody ProfessionalUpdateRequest request) {
         Professional updatedProfessional = professionalService.updateProfessional(id, request);
         return ResponseEntity.ok(updatedProfessional);
     }

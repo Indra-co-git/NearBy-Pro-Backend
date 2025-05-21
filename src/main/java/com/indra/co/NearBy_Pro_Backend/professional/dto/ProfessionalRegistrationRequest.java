@@ -7,7 +7,6 @@ import com.indra.co.NearBy_Pro_Backend.common.model.Professional;
 import java.util.UUID;
 import lombok.Data;
 import jakarta.validation.constraints.NotBlank;
-import java.util.Map;
 import java.util.List;
 import java.time.LocalDateTime; 
 
@@ -20,6 +19,7 @@ public class ProfessionalRegistrationRequest {
     private String fullName;
     @NotBlank(message = "Phone number is required")
     private String phoneNumber;
+    @NotBlank(message = "Invalid email format")
     private String email;
     @NotBlank(message = "Aadhaar number is required")
     private String aadhaarNumber;
